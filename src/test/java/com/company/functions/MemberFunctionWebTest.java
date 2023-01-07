@@ -1,5 +1,6 @@
-package com.insurance.functions;
+package com.company.functions;
 
+import com.company.models.MemberRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,16 +47,16 @@ public class MemberFunctionWebTest {
         member.setMemberId("1234567890");
 
         MvcResult result = mockMvc.perform(post("/members")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        .content(json.write(member).getJson())
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(json.write(member).getJson())
         ).andReturn();
 
         mockMvc.perform(asyncDispatch(result))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("coverage").value("MEDICAL"))
-        .andDo(WireMockRestDocs.verify().jsonPath("$.memberId")
-        .contentType(MediaType.APPLICATION_JSON_UTF8).stub("healthfirst-member-check"))
-        .andDo(MockMvcRestDocumentation.document("healthfirst-member-check",
-                SpringCloudContractRestDocs.dslContract()));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("coverage").value("MEDICAL"))
+                .andDo(WireMockRestDocs.verify().jsonPath("$.memberId")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8).stub("healthfirst-member-check"))
+                .andDo(MockMvcRestDocumentation.document("healthfirst-member-check",
+                        SpringCloudContractRestDocs.dslContract()));
     }
 }

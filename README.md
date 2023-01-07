@@ -1,16 +1,25 @@
 # Setup
+
 ## Generate deployable Artifacts
+
 Run following command to generate deployable / uploadable .jar file.
+
 ```
 $mvn clean package
 ```
-This gnerates a JAR file <b>'cloud-function-0.0.1-SNAPSHOT-aws.jar'</b> under target folder. Serverless Framework uploads this JAR file to AWS Lambda.
+
+This gnerates a JAR file <b>'cloud-function-0.0.1-SNAPSHOT-aws.jar'</b> under target folder. Serverless Framework
+uploads this JAR file to AWS Lambda.
 
 ### Run the function with data
+
 ```
 '{"memberId":"1234567890"}'
 ```
-This will invoke the function by passing the Member ID. You would see console output with response <b>MEDICAL</b> as below.
+
+This will invoke the function by passing the Member ID. You would see console output with response <b>MEDICAL</b> as
+below.
+
 ```
 {
     "memberId": "1234567890",
