@@ -1,7 +1,7 @@
 package com.company.functions;
 
 import com.company.handlers.FunctionApplication;
-import com.company.models.MemberRequest;
+import com.company.models.CommonRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,12 +27,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs(outputDir = "target/snippets")
 @AutoConfigureJsonTesters
-public class MemberFunctionWebTest {
+public class CommonFunctionTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    private JacksonTester<MemberRequest> json;
+    private JacksonTester<CommonRequest> json;
 
     @Before
     public void setup() {
@@ -41,16 +41,16 @@ public class MemberFunctionWebTest {
 
     @Test
     public void testMemberFunction() throws Exception {
-        MemberRequest member = new MemberRequest();
-        member.setMemberId("1234567890");
+        CommonRequest request = new CommonRequest();
+        request.setData("test");
 
-        MvcResult result = mockMvc.perform(post("/memberFunction")
+        MvcResult result = mockMvc.perform(post("/commonFunction")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(json.write(member).getJson())
+                .content(json.write(request).getJson())
         ).andReturn();
 
         mockMvc.perform(asyncDispatch(result))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("coverage").value("MEDICAL"));
+                .andExpect(jsonPath("result").value("TEST"));
     }
 }
