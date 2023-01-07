@@ -1,0 +1,12 @@
+service: aws-java-spring-cloud-function
+provider:
+  name: aws
+  runtime: java8
+  timeout: 10
+package:
+  artifact: target/cloud-function-0.0.1-SNAPSHOT-aws.jar
+functions:
+  members:
+    handler: com.insurance.functions.AwsLambdaHandler
+    environment:
+      FUNCTION_NAME: members
