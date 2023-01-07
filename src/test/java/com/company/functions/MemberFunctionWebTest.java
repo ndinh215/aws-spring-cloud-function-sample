@@ -1,5 +1,6 @@
 package com.company.functions;
 
+import com.company.handlers.FunctionApplication;
 import com.company.models.MemberRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -11,10 +12,7 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.cloud.contract.wiremock.restdocs.SpringCloudContractRestDocs;
-import org.springframework.cloud.contract.wiremock.restdocs.WireMockRestDocs;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -25,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = FunctionApplication.class)
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs(outputDir = "target/snippets")
 @AutoConfigureJsonTesters
@@ -42,21 +40,17 @@ public class MemberFunctionWebTest {
     }
 
     @Test
-    public void provideCoverageForGivenMemberId() throws Exception {
+    public void testMemberFunction() throws Exception {
         MemberRequest member = new MemberRequest();
         member.setMemberId("1234567890");
 
-        MvcResult result = mockMvc.perform(post("/members")
+        MvcResult result = mockMvc.perform(post("/memberFunction")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(json.write(member).getJson())
         ).andReturn();
 
         mockMvc.perform(asyncDispatch(result))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("coverage").value("MEDICAL"))
-                .andDo(WireMockRestDocs.verify().jsonPath("$.memberId")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8).stub("healthfirst-member-check"))
-                .andDo(MockMvcRestDocumentation.document("healthfirst-member-check",
-                        SpringCloudContractRestDocs.dslContract()));
+                .andExpect(jsonPath("coverage").value("MEDICAL"));
     }
 }

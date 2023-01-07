@@ -25,7 +25,7 @@
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
         <wrapper.version>1.0.10.RELEASE</wrapper.version>
         <aws-lambda-core.version>1.1.0</aws-lambda-core.version>
-        <start-class>com.company.handlers.MemberFunctionApplication</start-class>
+        <start-class>com.company.handlers.FunctionApplication</start-class>
     </properties>
 
     <dependencies>

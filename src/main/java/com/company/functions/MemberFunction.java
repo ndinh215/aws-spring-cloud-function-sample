@@ -2,9 +2,11 @@ package com.company.functions;
 
 import com.company.models.MemberRequest;
 import com.company.models.MemberResponse;
+import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
+@Component
 public class MemberFunction implements Function<MemberRequest, MemberResponse> {
 
     @Override
