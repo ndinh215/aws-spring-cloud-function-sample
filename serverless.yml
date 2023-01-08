@@ -7,6 +7,6 @@ package:
   artifact: target/cloud-function-0.0.1-SNAPSHOT-aws.jar
 functions:
   members:
-    handler: com.insurance.functions.AwsLambdaHandler
+    handler: com.company.functions.AwsLambdaHandler
     environment:
-      FUNCTION_NAME: members
+      FUNCTION_NAME: memberFunction
