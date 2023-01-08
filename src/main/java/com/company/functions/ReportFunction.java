@@ -23,6 +23,7 @@ public class ReportFunction implements Function<CommonRequest, CommonResponse> {
 
     @Override
     public CommonResponse apply(CommonRequest request) {
+        System.setProperty("user.dir","/tmp/");
         JasperReport jasperReport = null;
         try {
             jasperReport = getJasperReport();
@@ -40,7 +41,7 @@ public class ReportFunction implements Function<CommonRequest, CommonResponse> {
             throw new RuntimeException(e);
         }
         try {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, "report.pdf");
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "/tmp/report.pdf");
         } catch (JRException e) {
             throw new RuntimeException(e);
         }
