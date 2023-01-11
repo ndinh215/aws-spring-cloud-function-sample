@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.asyncDispatch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -45,12 +44,10 @@ public class MemberFunctionTest {
         member.setMemberId("1234567890");
 
         MvcResult result = mockMvc.perform(post("/memberFunction")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(json.write(member).getJson())
-        ).andReturn();
-
-        mockMvc.perform(asyncDispatch(result))
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(json.write(member).getJson()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("coverage").value("MEDICAL"));
+                .andExpect(jsonPath("coverage").value("MEDICAL"))
+                .andReturn();
     }
 }
