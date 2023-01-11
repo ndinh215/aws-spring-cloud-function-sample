@@ -44,7 +44,7 @@ def get_random_string(length):
     return result
 
 for item in rows:
-    memberName = rows[0].asDict()['memberName']
+    memberName = item.asDict()['memberName']
     response = sqs.send_message(
         QueueUrl=queueUrl,
         MessageAttributes={
