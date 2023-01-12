@@ -54,7 +54,6 @@ public class ReportFunction implements Function<CommonRequest, CommonResponse> {
         return response;
     }
 
-
     private static JasperReport getJasperReport() throws FileNotFoundException, JRException {
         File template = ResourceUtils.getFile("classpath:report.jrxml");
         return JasperCompileManager.compileReport(template.getAbsolutePath());

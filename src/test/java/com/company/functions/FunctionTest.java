@@ -42,9 +42,9 @@ public class FunctionTest {
         request.setMemberId("1234567890");
 
         mockMvc.perform(post("/handle")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(json.write(request).getJson()))
-            .andExpect(status().isOk())
-            .andReturn();
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json.write(request).getJson()))
+                .andExpect(status().isOk())
+                .andReturn();
     }
 }
