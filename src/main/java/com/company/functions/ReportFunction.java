@@ -23,7 +23,7 @@ public class ReportFunction implements Function<CommonRequest, CommonResponse> {
 
     @Override
     public CommonResponse apply(CommonRequest request) {
-        System.setProperty("user.dir","/tmp/");
+        System.setProperty("user.dir", "/tmp/");
         JasperReport jasperReport = null;
         try {
             jasperReport = getJasperReport();

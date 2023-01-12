@@ -1,7 +1,7 @@
 package com.company.functions;
 
 import com.company.handlers.FunctionApplication;
-import com.company.models.CommonRequest;
+import com.company.models.MemberRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -25,12 +24,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs(outputDir = "target/snippets")
 @AutoConfigureJsonTesters
-public class CommonFunctionTest {
+public class FunctionTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    private JacksonTester<CommonRequest> json;
+    private JacksonTester<MemberRequest> json;
 
     @Before
     public void setup() {
@@ -38,15 +37,14 @@ public class CommonFunctionTest {
     }
 
     @Test
-    public void testMemberFunction() throws Exception {
-        CommonRequest request = new CommonRequest();
-        request.setData("test");
+    public void testFunction() throws Exception {
+        MemberRequest request = new MemberRequest();
+        request.setMemberId("1234567890");
 
-        mockMvc.perform(post("/commonFunction")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content(json.write(request).getJson()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("result").value("TEST"))
-                .andReturn();
+        mockMvc.perform(post("/handle")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(json.write(request).getJson()))
+            .andExpect(status().isOk())
+            .andReturn();
     }
 }
